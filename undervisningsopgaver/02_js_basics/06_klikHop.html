@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        #firkant {
+            background-color: green;
+            height: 200px;
+            width: 200px;
+            line-height: 280px;
+            text-align: center;
+        }
+
+        #cirkel {
+            background-color: red;
+            height: 200px;
+            width: 200px;
+            line-height: 280px;
+            border-radius: 50%;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="firkant"></div>
+    <div id="cirkel"></div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+
+
+        function start() {
+            console.log("start");
+
+            const firkant = document.querySelector("#firkant");
+
+            let frog = document.createElement("img");
+            frog.src = "http://mabe-kea.dk/E19/pics/frog.png";
+
+            firkant.appendChild(frog);
+
+            const cirkel = document.querySelector("#cirkel");
+
+            let pig = document.createElement("img");
+            pig.src = "http://mabe-kea.dk/E19/pics/pig.png";
+
+            cirkel.appendChild(pig);
+
+
+            let fox = document.createElement("img");
+            fox.src = "http://mabe-kea.dk/E19/pics/fox.png";
+
+            cirkel.appendChild(fox);
+
+            firkant.addEventListener("click", flyt);
+            cirkel.addEventListener("click", stop);
+
+            function flyt() {
+                firkant.appendChild(frog) = cirkel.appendChild(pig);
+                cirkel.appendChild(pig) = firkant.appendChild(frog);
+            }
+
+            function stop() {
+
+            }
+
+        }
+    </script>
+
+</body></html>
