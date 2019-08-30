@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+
+    <style>
+        #liste {
+            display: grid;
+            border: 1px solid black;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <section class="dyre_bur"></section>
+
+    <template>
+        <article id="liste">
+            <h3></h3>
+            <img src="" alt="">
+            <p class="type"></p>
+            <p class="levested"></p>
+        </article>
+    </template>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", getJson);
+
+        let dyrene = [];
+
+
+
+
+        async function getJson() {
+            let jsonData = await fetch("dyr.json");
+            dyrene = await jsonData.json();
+            visDyr();
+        }
+
+
+        function visDyr() {
+            console.log("visDyr");
+            const bur = document.querySelector(".dyre_bur");
+            const dyreTemplate = document.querySelector("template");
+
+            dyrene.forEach(dyr => {
+                let klon = dyreTemplate.cloneNode(true).content;
+                klon.querySelector("h3").textContent = dyr.navn;
+                klon.querySelector("img").src = dyr.billede;
+                klon.querySelector(".type").textContent = dyr.type;
+                klon.querySelector(".levested").textContent = dyr.levested;
+                bur.appendChild(klon);
+            })
+        }
+        getJson();
+    </script>
+</body></html>
