@@ -84,12 +84,13 @@
         #popup {
             position: fixed;
             top: 0;
-            height: 100vw;
+            height: 100%;
             width: 100vw;
-            background: red;
+            background: rgba(0, 0, 128, 0.77);
             margin: 0;
             display: none;
             overflow: scroll;
+            border: none;
         }
 
         .indhold {
@@ -98,12 +99,18 @@
             background: #fff;
             margin: 4rem auto;
             padding: 10px;
+            border: none;
         }
+
 
         .luk {
             position: fixed;
             right: 0;
             font-size: 2rem;
+            font-family: sans-serif;
+            background: none;
+            color: aliceblue;
+            border: none;
         }
 
         @media only screen and (min-width: 600px) {
