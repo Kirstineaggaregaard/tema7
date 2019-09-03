@@ -178,6 +178,16 @@
                 mka.classList.remove("valgt")
             })
 
+
+
+            if (this.dataset.køn == "alle") {
+                document.querySelector(".filterHold").classList.remove("valgt");
+                document.querySelector(".filter").classList.remove("valgt");
+
+                hold = "begge";
+                køn = "alle";
+            }
+
             this.classList.add("valgt");
             document.querySelector("h1").textContent = this.textContent;
 
