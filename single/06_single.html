@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+
+    <style>
+        html {
+            background-color: aliceblue;
+
+        }
+
+        body {
+            margin: 0;
+        }
+
+
+        h2 {
+            text-align: center;
+            color: #f88;
+            font-family: sans-serif;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+        }
+
+        img {
+
+            width: 80%;
+
+        }
+
+        a {
+            text-decoration: none;
+            color: navy;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        #single {
+            position: fixed;
+            top: 0;
+            height: 100%;
+            width: 100vw;
+            background: rgba(0, 0, 128, 0.77);
+            margin: 0;
+            overflow: scroll;
+            border: none;
+        }
+
+        .indhold {
+            width: 70vw;
+            min-height: 50vh;
+            background: #fff;
+            margin: 4rem auto;
+            padding: 10px;
+            border: none;
+        }
+
+
+        .luk {
+            position: fixed;
+            right: 0;
+            font-size: 2rem;
+            font-family: sans-serif;
+            background: none;
+            color: aliceblue;
+            border: none;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <main id="single">
+        <button class="luk">X</button>
+        <section class="indhold">
+            <article class="enkeltPerson">
+                <h2></h2>
+                <img src="" alt="" class="billede">
+                <p> Github: <a href="" class="github"></a></p>
+                <p class="historie"> Historie: </p>
+            </article>
+        </section>
+
+    </main>
+
+    <script>
+        let urlParams = new URLSearchParams(window.location.search);
+        let github = urlParams.get("github");
+        let personer;
+
+        document.addEventListener("DOMContentLoaded", getJson);
+
+        async function getJson() {
+            let jsonData = await fetch("https://spreadsheets.google.com/feeds/list/1Xge7slZ9dEOTCn1Yxl3OE4xgvrXOL8Y_iu3WN1yGB1U/od6/public/values?alt=json");
+            console.log(jsonData)
+
+            personer = await jsonData.json();
+            visPerson();
+
+        }
+
+        function visPerson() {
+
+            personer.feed.entry.forEach(person => {
+                if (person.gsx$github.$t == github) {
+
+
+                    document.querySelector("h2").textContent = person.gsx$navn.$t;
+                    document.querySelector(".billede").src = person.gsx$billede.$t;
+                    document.querySelector(".billede").alt = person.gsx$navn.$t;
+                    document.querySelector(".github").href = `http://www.github.com/${person.gsx$github.$t}`;
+                    document.querySelector(".github").textContent = `http://www.github.com/${person.gsx$github.$t}`;
+                    document.querySelector(".historie").textContent += person.gsx$historie.$t;
+                }
+            })
+
+            document.querySelector(".luk").addEventListener("click", () => {
+                history.back();
+            })
+        }
+
+    </script>
+</body>
+
+</html>

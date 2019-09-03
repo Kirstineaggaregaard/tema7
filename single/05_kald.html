@@ -171,21 +171,7 @@
             })
         }
 
-        function visSingle(person) {
-            document.querySelector("#popup").style.display = "block";
-            document.querySelector("#popup .luk").addEventListener("click", lukSingle);
 
-            document.querySelector(".enkeltPerson h2").textContent = person.gsx$navn.$t;
-            document.querySelector(".enkeltPerson .billede").src = person.gsx$billede.$t;
-            document.querySelector(".enkeltPerson .billede").alt = person.gsx$navn.$t;
-            document.querySelector(".enkeltPerson .github").href = `http://www.github.com/${person.gsx$github.$t}`;
-            document.querySelector(".enkeltPerson .github").textContent = `http://www.github.com/${person.gsx$github.$t}`;
-            document.querySelector(".enkeltPerson .historie").textContent = person.gsx$historie.$t;
-        }
-
-        function lukSingle() {
-            document.querySelector("#popup").style.display = "none";
-        }
 
         function addEventListenersToButtons() {
             document.querySelectorAll(".filter").forEach(elm => {
