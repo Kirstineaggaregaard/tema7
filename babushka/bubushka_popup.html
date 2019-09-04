@@ -41,6 +41,10 @@
 
         }
 
+        h3 {
+            text-align: center;
+        }
+
         article {
             border: 2px solid navy;
             grid-template-columns: 1fr;
@@ -60,6 +64,7 @@
             font-size: 1.2rem;
         }
 
+
         img {
 
             width: 30%;
@@ -71,6 +76,46 @@
             color: navy;
             text-transform: uppercase;
             font-size: 0.8rem;
+        }
+
+        #popup {
+            position: fixed;
+            top: 0;
+            height: 100%;
+            width: 100vw;
+            background: rgba(0, 0, 128, 0.77);
+            margin: 0;
+            display: none;
+            overflow: scroll;
+
+        }
+
+        .indhold {
+            width: 70vw;
+            min-height: 50vh;
+            background: #fff;
+            margin: 4rem auto;
+            padding: 10px;
+
+        }
+
+        .enkeltRet {
+            border: none;
+        }
+
+        .enkeltRet img {
+            width: 100%;
+        }
+
+
+        .luk {
+            position: fixed;
+            right: 0;
+            font-size: 2rem;
+            font-family: sans-serif;
+            background: none;
+            color: aliceblue;
+            border: none;
         }
 
         @media only screen and (min-width: 600px) {
@@ -103,9 +148,23 @@
 
     </nav>
 
+    <div id="popup">
+        <button class="luk">X</button>
+        <section class="indhold">
+            <article class="enkeltRet">
+                <h2></h2>
+                <img src="" alt="" class="billede">
+                <p class="pris"></p>
+                <p class="lang"> </p>
+                <p class="op"> </p>
+            </article>
+        </section>
 
+    </div>
 
+    <h3 id="kategori"> Alle Retter </h3>
     <section class="data_container"></section>
+
 
     <template>
         <article>
@@ -148,13 +207,33 @@
                     klon.querySelector("h2").textContent = ret.gsx$navn.$t;
                     klon.querySelector("img").src = `imgs/small/${ret.gsx$billede.$t}-sm.jpg`;
                     klon.querySelector("img").alt = ret.gsx$billede.$t;
-                    klon.querySelector(".pris").textContent = ret.gsx$pris.$t;
+                    klon.querySelector(".pris").textContent = `${ret.gsx$pris.$t} kr`;
                     klon.querySelector(".kort").textContent = ret.gsx$kort.$t;
 
                     container.appendChild(klon);
+                    container.lastElementChild.addEventListener("click", () => {
+                        visSingle(ret)
+                    });
 
                 }
             })
+        }
+
+        function visSingle(ret) {
+            document.querySelector("#popup").style.display = "block";
+            document.querySelector("#popup .luk").addEventListener("click", lukSingle);
+
+            document.querySelector(".enkeltRet h2").textContent = ret.gsx$navn.$t;
+            document.querySelector(".enkeltRet .billede").src = `imgs/large/${ret.gsx$billede.$t}.jpg`;
+            document.querySelector(".enkeltRet .billede").alt = ret.gsx$billede.$t;
+            document.querySelector(".enkeltRet .pris").textContent = `${ret.gsx$pris.$t} kr`;
+            document.querySelector(".enkeltRet .lang").textContent = ` Beskrivelse: ${ret.gsx$lang.$t}`;
+            document.querySelector(".enkeltRet .op").textContent = `Oprindelse: ${ret.gsx$oprindelse.$t}`;
+
+        }
+
+        function lukSingle() {
+            document.querySelector("#popup").style.display = "none";
         }
 
         function addEventListenersToButtons() {
@@ -167,6 +246,7 @@
             console.log(filtrering);
             kategori = this.dataset.kategori;
 
+            document.querySelector("#kategori").textContent = this.textContent;
             document.querySelectorAll("button").forEach(knap => {
                 knap.classList.remove("valgt")
             })
